@@ -1,0 +1,22 @@
+"dataset","recipe","rows","finite","direction","entered","significant"
+"puniform::data.mccall93","ZCOR(ri, ni)",12,12,1,12,11
+"puniform::help-example-t99","t-values, df = 99",8,8,1,8,5
+"metadat::dat.aloe2013","t-values, df = n - preds - 1",5,5,1,4,3
+"metadat::dat.assink2016","yi, vi",100,100,1,82,59
+"metadat::dat.bakdash2021","es.z, vi.z",678,678,1,536,172
+"metadat::dat.bangertdrowns2004","yi, vi",48,48,1,36,14
+"metadat::dat.bourassa1996","OR(lh.le, lh.re, rh.le, rh.re)",96,96,1,92,57
+"metadat::dat.cohen1981","ZCOR(ri, ni)",20,20,1,18,10
+"metadat::dat.craft2003","ZCOR(ri, ni)",60,54,-1,28,17
+"metadat::dat.crede2010","ZCOR(ri, ni)",97,97,1,95,85
+"metadat::dat.furukawa2003","SMD(e vs c)",17,17,-1,15,5
+"metadat::dat.kalaian1996","yi, vi",67,67,1,48,4
+"metadat::dat.knapp2017","yi, vi",66,66,1,64,46
+"metadat::dat.konstantopoulos2011","yi, vi",56,56,1,31,15
+"metadat::dat.landenberger2005","OR(n.cbt.non, n.cbt.rec, n.ctrl.non, n.ctrl.rec)",58,58,1,51,18
+"metadat::dat.lehmann2018","yi, vi",81,81,1,57,25
+"metadat::dat.mcdaniel1994","ZCOR(ri, ni)",160,160,1,141,81
+"metadat::dat.michael2013","yi, vi",12,12,1,8,2
+"metadat::dat.molloy2014","ZCOR(ri, ni)",16,16,1,13,9
+"metadat::dat.raudenbush1985","yi, vi",19,19,1,11,3
+"metadat::dat.tannersmith2016","yi, vi",113,113,1,93,43

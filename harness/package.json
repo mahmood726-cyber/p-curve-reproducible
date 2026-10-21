@@ -1,0 +1,8 @@
+{
+  "name": "p-curve-reproducible-harness",
+  "private": true,
+  "description": "Node runner for the allmeta p-curve page (linkedom document). node_modules is not redistributed: run `npm ci` here.",
+  "dependencies": {
+    "linkedom": "0.18.12"
+  }
+}

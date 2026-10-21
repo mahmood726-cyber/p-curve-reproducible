@@ -1,0 +1,341 @@
+{
+  "label": "original",
+  "checks": 671975,
+  "passed": 158791,
+  "configurations": 1905,
+  "gate_pass": false,
+  "max_normalised_difference_passing_1e9": 9.9328445468671589e-10,
+  "unexpected_failures": [],
+  "resolved_known": [],
+  "per_quantity": [
+    {
+      "quantity": "configuration_set",
+      "checks": 1905,
+      "passed": 1905,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "exact"
+    },
+    {
+      "quantity": "display",
+      "checks": 30160,
+      "passed": 9461,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "shown precision"
+    },
+    {
+      "quantity": "display_refusal",
+      "checks": 20,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "exact"
+    },
+    {
+      "quantity": "fisher_chisq",
+      "checks": 1885,
+      "passed": 1881,
+      "max_difference": 0.28251577200428096,
+      "max_difference_passed": 1.204743694941227e-15,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "fisher_p",
+      "checks": 1885,
+      "passed": 1881,
+      "max_difference": 0.10569320819910785,
+      "max_difference_passed": 1.1929346399597307e-13,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "flat_full_p",
+      "checks": 1885,
+      "passed": 580,
+      "max_difference": 0.22047446082784916,
+      "max_difference_passed": 9.9328445468671589e-10,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "flat_full_z",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 2.0083791361799928,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "flat_full_z_from_page_pp",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "flat_half_p",
+      "checks": 1885,
+      "passed": 452,
+      "max_difference": 0.16116902276453393,
+      "max_difference_passed": 9.6531427296042693e-10,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "flat_half_z",
+      "checks": 1885,
+      "passed": 64,
+      "max_difference": 2.0250656863419856,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "flat_half_z_from_page_pp",
+      "checks": 1885,
+      "passed": 64,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "k",
+      "checks": 1885,
+      "passed": 1881,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "exact"
+    },
+    {
+      "quantity": "k_half",
+      "checks": 1885,
+      "passed": 1881,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "exact"
+    },
+    {
+      "quantity": "n_invalid",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "exact"
+    },
+    {
+      "quantity": "ncp33",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 0.0002831850018965898,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "p_flat",
+      "checks": 1885,
+      "passed": 424,
+      "max_difference": 0.096448106371460174,
+      "max_difference_passed": 9.6593166798442098e-10,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "p_used",
+      "checks": 130605,
+      "passed": 130593,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "plot_expected33",
+      "checks": 9425,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "plot_observed",
+      "checks": 9425,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pp_flat_full",
+      "checks": 130605,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pp_flat_half",
+      "checks": 85375,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pp_skew_full",
+      "checks": 130605,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pp_skew_half",
+      "checks": 85375,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "prop_low",
+      "checks": 1885,
+      "passed": 1881,
+      "max_difference": 0.19999999999999996,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pu_ci_lb",
+      "checks": 1885,
+      "passed": 8,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pu_ci_ub",
+      "checks": 1885,
+      "passed": 4,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pu_default_ci_lb",
+      "checks": 1885,
+      "passed": 8,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-4 + 1e-4/|f'|"
+    },
+    {
+      "quantity": "pu_default_ci_ub",
+      "checks": 1885,
+      "passed": 4,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-4 + 1e-4/|f'|"
+    },
+    {
+      "quantity": "pu_default_est",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 29.826366643727965,
+      "max_difference_passed": 0,
+      "tolerance": "1e-4 + 1e-4/|f'|"
+    },
+    {
+      "quantity": "pu_default_L0",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pu_default_pval0",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pu_est",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 1,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pu_L0",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "pu_pval0",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "refusal_state",
+      "checks": 1905,
+      "passed": 1905,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "exact"
+    },
+    {
+      "quantity": "run_errors",
+      "checks": 1905,
+      "passed": 1905,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "exact"
+    },
+    {
+      "quantity": "skew_full_p",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "skew_full_z",
+      "checks": 1885,
+      "passed": 0,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "skew_half_p",
+      "checks": 1885,
+      "passed": 64,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "skew_half_z",
+      "checks": 1885,
+      "passed": 64,
+      "max_difference": 0,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    },
+    {
+      "quantity": "z_flat",
+      "checks": 1885,
+      "passed": 1881,
+      "max_difference": 0.22540333075851654,
+      "max_difference_passed": 0,
+      "tolerance": "1e-9"
+    }
+  ],
+  "final_line": "original: 158791/671975 checks pass"
+}

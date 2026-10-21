@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; media-src 'self' blob:; manifest-src 'self'">
+  <link rel="stylesheet" href="../shared/forced-colors.css">
+  <meta name="description" content="p-curve (Simonsohn 2014) and p-uniform (van Assen 2015) for publication-bias-robust effect-size estimation from p-values alone.">
+  <meta name="color-scheme" content="light dark">
+  <title>p-curve + p-uniform</title>
+  <style>
+    :root { --bg:#f6f4ef; --panel:#fff; --ink:#15181d; --muted:#5c6470;
+            --accent:#2c5e8a; --accent-soft:#e8f0f7; --warn:#b05a1c;
+            --warn-soft:#fbeedd; --border:#d9d5cc; --input-bg:#fbfaf6;
+            --ok:#0d7a27; --bad:#912121; }
+    @media (prefers-color-scheme:dark) {
+      :root { --bg:#141618; --panel:#1c1f23; --ink:#e7e4dc; --muted:#98a0ae;
+              --accent:#6aa6d4; --accent-soft:#223044; --warn:#e0a268;
+              --warn-soft:#3a2d1c; --border:#2f343a; --input-bg:#23272c;
+              --ok:#5bc47b; --bad:#ef7373; }
+    }
+    @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; } }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+           background: var(--bg); color: var(--ink); min-height: 100vh; line-height: 1.5; }
+    header { padding: 2rem clamp(1rem, 3vw, 3rem) 1rem; border-bottom: 1px solid var(--border); background: var(--panel); }
+    header h1 { margin: 0 0 0.25rem; font-size: 1.6rem; letter-spacing: -0.01em; }
+    header p { margin: 0; color: var(--muted); font-size: 0.95rem; max-width: 72ch; }
+    main { padding: 1.5rem clamp(1rem, 3vw, 3rem); display: grid; gap: 1.5rem;
+           grid-template-columns: minmax(300px, 24rem) 1fr; align-items: start; }
+    @media (max-width: 1000px) { main { grid-template-columns: 1fr; } }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.25rem; }
+    .panel h2 { margin: 0 0 0.75rem; font-size: 0.85rem; font-weight: 600;
+                text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    textarea { width: 100%; min-height: 11rem; padding: 0.5rem 0.65rem;
+               border: 1px solid var(--border); background: var(--input-bg); color: var(--ink);
+               border-radius: 6px; font: 0.84rem/1.4 "SF Mono", Consolas, monospace; }
+    select, input { width: 100%; padding: 0.35rem 0.55rem; border: 1px solid var(--border);
+      background: var(--input-bg); color: var(--ink); border-radius: 6px; font: inherit; }
+    label { display: block; font-size: 0.85rem; margin-bottom: 0.55rem; }
+    label .hint { display: block; color: var(--muted); font-size: 0.72rem; margin-top: 0.1rem; }
+    button.primary { background: var(--accent); color: #fff; border: none; padding: 0.5rem 1rem;
+                     border-radius: 6px; font-weight: 600; font-size: 0.88rem; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.87rem; margin-bottom: 1rem; }
+    th, td { padding: 0.4rem 0.55rem; border-bottom: 1px solid var(--border); text-align: left; }
+    th { color: var(--muted); font-size: 0.74rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+    td code { background: var(--accent-soft); padding: 0.1rem 0.4rem; border-radius: 4px; }
+    .chip { display: inline-block; padding: 0.1rem 0.5rem; border-radius: 999px; font-size: 0.74rem; font-weight: 600; color: white; }
+    .chip.ok { background: var(--ok); }
+    .chip.bad { background: var(--bad); }
+    svg { width: 100%; height: auto; display: block; }
+    footer { padding: 1rem clamp(1rem, 3vw, 3rem) 2rem; color: var(--muted); font-size: 0.8rem; }
+    footer code { background: var(--accent-soft); padding: 0.1rem 0.35rem; border-radius: 3px; }
+    .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem;
+               padding-top: 0.75rem; border-top: 1px dashed var(--border); align-items: center; }
+  </style>
+  <link rel="stylesheet" href="../hub/app-style.css">
+  <!-- Cycle 2.5 shared UX modules — wired per RETROFIT_AUDIT.md:
+       wired:   csv-upload, axis-controls, results-export, url-state, reset-undo, tooltips
+       skipped (out-of-scope): chart-download (SVG histogram rendered inline; deferred) -->
+  <script src="../hub/shared/csv-upload.js"></script>
+  <script src="../hub/shared/axis-controls.js"></script>
+  <script src="../hub/shared/results-export.js"></script>
+  <script src="../hub/shared/url-state.js"></script>
+  <script src="../hub/shared/reset-undo.js"></script>
+  <script src="../hub/shared/tooltips.js"></script>
+  <script src="../shared/build-info.js"></script>
+  <script src="../shared/ma-studies-v1.js"></script>
+  <script src="../shared/autosave.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:-9999px;z-index:99999;padding:6px 10px;background:#000;color:#fff;border-radius:4px;text-decoration:none" onfocus="this.style.left='12px';this.style.top='12px'" onblur="this.style.left='-9999px';this.style.top='-9999px'">Skip to main content</a>
+<a id="hub-back" href="../" aria-label="Back to allmeta hub" style="position:fixed;top:12px;left:12px;z-index:99999;padding:6px 12px;background:rgba(28,31,35,0.85);color:#fff;text-decoration:none;border-radius:14px;font:600 12px/1 system-ui,sans-serif;letter-spacing:.04em;box-shadow:0 2px 8px rgba(0,0,0,0.18);transition:opacity .15s ease;opacity:.85" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.85'">&#8592; allmeta</a>
+  <header>
+    <h1>p-curve &amp; p-uniform</h1>
+    <p>Publication-bias-robust effect estimation from the distribution of statistically significant p-values. A right-skewed p-curve indicates evidential value; a flat or left-skewed curve is consistent with no true effect or selective reporting.</p>
+  </header>
+  <main id="main">
+    <section class="panel">
+      <h2>Input</h2>
+
+      <!-- csv-upload mount: file picker for study,p CSV files -->
+      <div id="alm-csv-mount"></div>
+
+      <label>
+        <span>p-values — one per line (one-sided or two-sided significant, &lt;0.05)</span>
+        <textarea id="src" aria-label="Input">0.001
+0.003
+0.002
+0.008
+0.012
+0.004
+0.006
+0.001
+0.017
+0.005
+0.009
+0.002</textarea>
+        <span class="hint">Only statistically significant p-values are used (0 &lt; p &lt; 0.05). Non-significant inputs are dropped.</span>
+      </label>
+      <label>
+        <span>Test type (for effect size)</span>
+        <select id="test" aria-label="Test">
+          <option value="z" selected>z-test</option>
+          <option value="t">t-test (equal df across studies)</option>
+        </select>
+      </label>
+      <label>
+        <span>Common df (if t)</span>
+        <input id="df" type="number" step="1" min="1" value="100" aria-label="Df">
+      </label>
+
+      <!-- axis-controls mount -->
+      <div id="alm-axis-mount" style="margin-top:0.5rem"></div>
+
+      <!-- results-export mount -->
+      <div id="alm-export-mount" style="margin-top:0.5rem"></div>
+
+      <div class="actions">
+        <button type="button" id="btn-run" class="primary">Analyze</button>
+        <!-- reset-undo mount -->
+        <div id="alm-undo-mount" style="display:inline-flex;gap:0.5rem;align-items:center;"></div>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Evidential value tests (p-curve)</h2>
+      <table>
+        <thead><tr><th>Test</th><th>Statistic</th><th>p</th><th>Verdict</th></tr></thead>
+        <tbody id="tests-body"></tbody>
+      </table>
+      <h2 style="margin-top:0.5rem">p-uniform effect size</h2>
+      <table>
+        <thead><tr><th>Quantity</th><th>Value</th></tr></thead>
+        <tbody id="pu-body"></tbody>
+      </table>
+      <h2 style="margin-top:0.5rem">p-curve distribution (significant p only)</h2>
+      <svg id="plot" viewBox="0 0 600 240" role="img" aria-label="Observed and expected p-curve distribution"></svg>
+    </section>
+  </main>
+  <footer>
+    <abbr data-gloss="p-curve">p-curve</abbr>: Simonsohn U, Nelson LD, Simmons JP. p-curve: a key to the file-drawer. <em>J Exp Psychol Gen</em> 2014;143:534-547. <strong>Method-vs-code disclosure (allmeta heuristic):</strong> the right-skew test here uses <abbr data-gloss="Fisher">Fisher's combined method</abbr> <code>-2&middot;&Sigma; ln(pp) ~ &chi;&sup2;(2k)</code> on uniformly-transformed pp = p/0.05 values (the original Simonsohn 2014 paper recommends Stouffer's z-pool; both detect right-skew but power differs). The flatness test is Simonsohn's real 33%-power test: for each significant study a pp-value is computed under a 33%-power alternative (the non-centrality giving that study's test 1/3 power at &alpha;=.05, two-sided) and the pp-values are combined by <abbr data-gloss="Stouffer">Stouffer's method</abbr> <code>Z = &Sigma;&Phi;&#8315;&sup1;(pp)/&radic;k</code>; a significantly small flatness <em>p</em> means the curve is <em>flatter</em> than 33% power (inadequate evidential value). Full and half (<em>p</em>&lt;.025) curves are reported. The non-central benchmark is computed for the two families the app accepts as input &mdash; two-sided <em>z</em> (ncp&#8407;&nbsp;&mu;&nbsp;&asymp;&nbsp;1.529) and non-central <em>t</em> at the common df (CDF verified against <code>scipy.stats.nct</code> to&nbsp;1e-6); every input row is therefore covered. (A legacy binomial pp&le;0.5 screen is retained in the exported JSON only, for schema back-compat, and is not shown.) <abbr data-gloss="p-uniform">p-uniform</abbr>: van Assen MALM, van Aert RCM, Wicherts JM. <em>Psychol Methods</em> 2015;20:293-309.
+  </footer>
+  <script>
+    function pnorm(x) {
+      const t = 1 / (1 + 0.3275911 * Math.abs(x) / Math.SQRT2);
+      const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x / 2);
+      return x >= 0 ? 0.5 * (1 + y) : 0.5 * (1 - y);
+    }
+    function qnorm(p) {
+      if (p <= 0 || p >= 1) return NaN;
+      const q = p < 0.5 ? p : 1 - p;
+      const t = Math.sqrt(-2 * Math.log(q));
+      const c0 = 2.515517, c1 = 0.802853, c2 = 0.010328;
+      const d1 = 1.432788, d2 = 0.189269, d3 = 0.001308;
+      const x = t - (c0 + c1 * t + c2 * t * t) / (1 + d1 * t + d2 * t * t + d3 * t * t * t);
+      return p < 0.5 ? -x : x;
+    }
+    function fmt(x, d = 3) { return Number.isFinite(x) ? x.toFixed(d) : "—"; }
+
+    // Exposed for results-export
+    var _lastResults = null;
+    window._almLastPcurve = function () { return _lastResults; };
+
+    function run() {
+      const raw = document.getElementById("src").value.trim().split(/\s+/).map(parseFloat).filter(x => Number.isFinite(x) && x > 0 && x < 0.05);
+      const nSig = raw.length;
+      if (nSig < 3) {
+        document.getElementById("tests-body").innerHTML = `<tr><td colspan="4">Need at least 3 significant (p &lt; 0.05) p-values.</td></tr>`;
+        _lastResults = null;
+        return;
+      }
+
+      // --- Right-skew test: transform each p to pp = p / 0.05 (under null, uniform on [0,1]).
+      // Skewness: are small pp over-represented? Fisher's method using ln(pp).
+      const ppRight = raw.map(p => p / 0.05);  // U(0,1) under null
+      // For right-skew under H0 (no effect), pp is uniform. Under H1 (true effect), pp concentrates near 0.
+      // Fisher's method: -2 Σ ln(pp) ~ χ²(2k) under null; large values reject null.
+      const T_skew = -2 * ppRight.reduce((s, pp) => s + Math.log(pp), 0);
+      const p_skew = 1 - pchi(T_skew, 2 * nSig);
+
+      // --- Legacy uniform screen (kept ONLY for the pcurve-results-v1 export
+      // schema and its R-parity fixture): binomial proportion of pp ≤ 0.5 vs
+      // 0.5 under U(0,1). This is NOT the flatness test any more — the real
+      // 33%-power flatness test (below) drives the UI. Do not read these three
+      // fields as evidential-value evidence.
+      const pLow = ppRight.filter(pp => pp <= 0.5).length / nSig;
+      const z_flat = (pLow - 0.5) / Math.sqrt(0.25 / nSig);
+      const p_flat = 2 * (1 - pnorm(Math.abs(z_flat)));
+
+      // --- REAL flatness test (Simonsohn 33%-power benchmark; see engine below).
+      // Uses the selected test family (z two-sided, or t at the common df) to
+      // build each study's pp-value under a 33%-power alternative, then Stouffer.
+      const testType = document.getElementById("test").value;
+      const dfVal = parseInt(document.getElementById("df").value, 10);
+      const useT = (testType === "t" && Number.isFinite(dfVal) && dfVal >= 1);
+      const flatFamily = useT ? ("non-central t, df=" + dfVal) : "two-sided z";
+      const flatFull = useT ? flatnessT(raw, dfVal, false) : flatnessZ(raw, false);
+      const flatHalf = useT ? flatnessT(raw, dfVal, true) : flatnessZ(raw, true);
+      const ncp33 = flatFull ? flatFull.ncp : NaN;
+
+      // --- p-uniform: under a fixed true effect δ and selective-publication, conditional p-values should be U(0,1) after transformation p* = P(p ≤ p | reject).
+      // Iteratively find δ that makes mean(pp_delta) = 0.5.
+      // pp_delta = Φ(z_observed - δ·√n) / Φ(-z_{0.025} - δ·√n) (rough approximation with fixed n)
+      // For simplicity, treat each study as z-test and solve for δ (effect on standardized scale).
+      let delta = 0;
+      for (let iter = 0; iter < 60; iter++) {
+        const ppd = raw.map(p => {
+          const z = qnorm(1 - p);  // one-sided Z
+          const num = pnorm(z - delta) - pnorm(qnorm(1 - 0.05) - delta);
+          const denom = 1 - pnorm(qnorm(1 - 0.05) - delta);
+          return denom > 1e-10 ? Math.min(1, Math.max(0, num / denom)) : 0.5;
+        });
+        const mean = ppd.reduce((s, v) => s + v, 0) / ppd.length;
+        if (Math.abs(mean - 0.5) < 1e-4) break;
+        // The conditional-CDF transform above is DECREASING in delta, so to pull its
+        // mean down toward 0.5 we must INCREASE delta. The previous (0.5 - mean) sign
+        // pushed delta the wrong way and diverged (e.g. delta=-4.9 for right-skewed
+        // data that has a clear positive effect). Verified vs an R reference.
+        delta += 0.5 * (mean - 0.5);  // damped update
+        delta = Math.max(-10, Math.min(10, delta));  // guard against pathological divergence
+        if (!Number.isFinite(delta)) { delta = 0; break; }
+      }
+
+      // Save results for export
+      _lastResults = {
+        _schema: 'pcurve-results-v1',
+        k: nSig,
+        fisher_chisq: T_skew,
+        fisher_df: 2 * nSig,
+        fisher_p: p_skew,
+        prop_low: pLow,
+        z_flat: z_flat,
+        p_flat: p_flat,
+        // Real 33%-power flatness test (Simonsohn 2014/2015):
+        flat_family: flatFamily,
+        flat_ncp33: ncp33,
+        flat_full_k: flatFull ? flatFull.k : 0,
+        flat_full_stouffer_z: flatFull ? flatFull.Z : NaN,
+        flat_full_p: flatFull ? flatFull.pflat : NaN,
+        flat_half_k: flatHalf ? flatHalf.k : 0,
+        flat_half_stouffer_z: flatHalf ? flatHalf.Z : NaN,
+        flat_half_p: flatHalf ? flatHalf.pflat : NaN,
+        delta_puniform: delta,
+        p_values_used: raw,
+      };
+
+      const testsBody = document.getElementById("tests-body");
+      const __testsBodyParts = [""];
+      const flagSkew = p_skew < 0.05 ? "ok" : "bad";
+      const labelSkew = p_skew < 0.05 ? "evidential value" : "no evidential value";
+      __testsBodyParts.push(`<tr><td><code>Right-skew (full p-curve)</code></td><td>&#x3c7;&sup2; = ${fmt(T_skew, 2)}</td><td>${fmt(p_skew, 3)}</td><td><span class="chip ${flagSkew}">${labelSkew}</span></td></tr>`);
+      // Real 33%-power flatness rows (full and half curve). A significant
+      // (small p) result ⇒ curve is FLATTER than 33% power ⇒ inadequate
+      // evidential value (chip "bad"); otherwise "not flatter than 33%".
+      const flatRow = (label, res) => {
+        if (!res) return `<tr><td><code>${label}</code></td><td>&mdash;</td><td>&mdash;</td><td><span class="chip bad">no p in range</span></td></tr>`;
+        const flag = res.pflat < 0.05 ? "bad" : "ok";
+        const txt = res.pflat < 0.05 ? "flatter than 33% power (inadequate)" : "not flatter than 33% power";
+        return `<tr><td><code>${label}</code> <span class="hint" style="display:inline;color:var(--muted);font-size:0.72rem">k=${res.k}, ${flatFamily}, ncp&#8407;=${fmt(res.ncp, 2)}</span></td><td>Z = ${fmt(res.Z, 2)}</td><td>${fmt(res.pflat, 3)}</td><td><span class="chip ${flag}">${txt}</span></td></tr>`;
+      };
+      __testsBodyParts.push(flatRow("Flatness (full, vs 33% power)", flatFull));
+      __testsBodyParts.push(flatRow("Flatness (half, p&lt;.025, vs 33% power)", flatHalf));
+
+      const puBody = document.getElementById("pu-body");
+      puBody.innerHTML = `
+        <tr><td>Significant p-values used</td><td>${nSig}</td></tr>
+        <tr><td>p-uniform effect estimate (&#948;, z-units)</td><td>${fmt(delta)}</td></tr>
+        <tr><td>p-uniform &#948; (z-units; not Cohen's d &mdash; sample n not collected)</td><td>${fmt(delta, 3)}</td></tr>`;
+
+      drawCurve(raw);
+      testsBody.innerHTML = __testsBodyParts.join("");
+
+    }
+
+    // Exact χ² CDF via the regularised lower incomplete gamma P(k/2, x/2)
+    // (Numerical Recipes gammp; ~1e-14). Replaces a Wilson-Hilferty approximation
+    // that was off by up to ~1.4% in the tail at the small df (= 2·k_sig) typical
+    // of a p-curve — enough to flip a borderline right-skew p across the 0.05
+    // line. Matches R's pchisq; same vetted code as nma-inconsistency.
+    function _lngamma(z) {
+      const g = 7, c = [0.99999999999980993, 676.5203681218851,
+        -1259.1392167224028, 771.32342877765313, -176.61502916214059,
+        12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6,
+        1.5056327351493116e-7];
+      if (z < 0.5) return Math.log(Math.PI / Math.sin(Math.PI * z)) - _lngamma(1 - z);
+      z -= 1; let x = c[0];
+      for (let i = 1; i < g + 2; i++) x += c[i] / (z + i);
+      const t = z + g + 0.5;
+      return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(x);
+    }
+    function _gammp(s, x) {
+      if (x <= 0) return 0;
+      if (x < s + 1) {
+        let ap = s, sum = 1 / s, del = sum;
+        for (let n = 0; n < 300; n++) {
+          ap += 1; del *= x / ap; sum += del;
+          if (Math.abs(del) < Math.abs(sum) * 1e-15) break;
+        }
+        return sum * Math.exp(-x + s * Math.log(x) - _lngamma(s));
+      }
+      let b = x + 1 - s, c = 1e300, d = 1 / b, h = d;
+      for (let i = 1; i < 300; i++) {
+        const an = -i * (i - s);
+        b += 2; d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300;
+        c = b + an / c; if (Math.abs(c) < 1e-300) c = 1e-300;
+        d = 1 / d; const del = d * c; h *= del;
+        if (Math.abs(del - 1) < 1e-15) break;
+      }
+      return 1 - Math.exp(-x + s * Math.log(x) - _lngamma(s)) * h;
+    }
+    function pchi(x, k) {
+      if (k <= 0 || x <= 0) return 0;
+      return _gammp(k / 2, x / 2);
+    }
+
+    // =====================================================================
+    // REAL flatness test (Simonsohn, Nelson & Simmons 2014 JEP:Gen; 2015
+    // "Better p-curves"). For each significant study we compute its pp-value
+    // UNDER A 33%-POWER ALTERNATIVE (the noncentrality that gives the study's
+    // test 1/3 power at α=.05, two-sided), then combine the pp's with
+    // Stouffer's method (Z = Σ Φ⁻¹(pp)/√k). A curve significantly FLATTER
+    // than the 33%-power benchmark (p_flat small) lacks evidential value.
+    //
+    //   pp33 = P(stat ≥ obs | stat ≥ crit, ncp33)   (uniform under 33% power;
+    //          small when p is small, →1 as p→cutoff)
+    //   Z    = Σ Φ⁻¹(pp33) / √k          p_flat = 1 − Φ(Z)   (small ⇒ flat)
+    //
+    // Full curve conditions on the α=.05 cutoff; half curve uses only p<.025
+    // studies and conditions on the .025 cutoff — but the 33%-power ncp is
+    // ALWAYS defined at α=.05 (Simonsohn's benchmark is 33% power at .05).
+    //
+    // Supported input families (both faithfully computed & scipy-verified):
+    //   z  — two-sided normal (ncp33 μ ≈ 1.529; verified vs scipy.stats.norm)
+    //   t  — non-central t at the common df (ncp33 δ depends on df; the
+    //        non-central t CDF _pnct matches scipy.stats.nct to 1e-6).
+    // No other family is included in the statistic (honesty: the app only
+    // accepts z and t inputs, so the flatness test covers every input row).
+
+    // Non-central t CDF via v=u² substitution over the χ²(ν) density, Simpson
+    // rule. F(t;ν,δ)=∫₀^∞ Φ(t·√(v/ν)−δ)·f_{χ²}(v;ν)dv. Matches scipy.stats.nct
+    // to ~1e-6 across ν∈[1,100], δ∈[0,2.5] (verified in node vs scipy 1.17).
+    function _pnct(t, nu, d) {
+      const N = 2000;
+      const Umax = Math.sqrt(nu + 12 * Math.sqrt(2 * nu)) + 6;
+      const logc = Math.log(2) - (nu / 2) * Math.log(2) - _lngamma(nu / 2);
+      const h = Umax / N, snu = Math.sqrt(nu);
+      let tot = 0;
+      for (let i = 0; i <= N; i++) {
+        const u = i * h;
+        let f;
+        if (u === 0) { f = (nu === 1) ? Math.exp(logc) * pnorm(-d) : 0; }
+        else { const lw = logc + (nu - 1) * Math.log(u) - u * u / 2; f = Math.exp(lw) * pnorm(t * u / snu - d); }
+        const w = (i === 0 || i === N) ? 1 : (i % 2 === 1 ? 4 : 2);
+        tot += w * f;
+      }
+      return tot * h / 3;
+    }
+    function _ptc(x, nu) { return _pnct(x, nu, 0); }           // central t CDF
+    function _qtc(p, nu) {                                      // central t quantile (bisection)
+      let lo = -200, hi = 200;
+      for (let i = 0; i < 70; i++) { const m = (lo + hi) / 2; if (_ptc(m, nu) < p) lo = m; else hi = m; }
+      return (lo + hi) / 2;
+    }
+    // ncp giving 33% power: monotone in ncp, root on [0,8] by bisection.
+    function _solveNcp33(powFn) {
+      let lo = 0, hi = 8;
+      for (let i = 0; i < 70; i++) { const m = (lo + hi) / 2; if (powFn(m) < 1 / 3) lo = m; else hi = m; }
+      return (lo + hi) / 2;
+    }
+    // Two-sided rejection probability (power) at |stat|>crit under the alt.
+    function _zTailPow(crit, mu) { return (1 - pnorm(crit - mu)) + pnorm(-crit - mu); }
+    function _tTailPow(crit, df, d) { return (1 - _pnct(crit, df, d)) + _pnct(-crit, df, d); }
+
+    // Flatness for a z (two-sided normal) family.
+    function flatnessZ(ps, half) {
+      const crit05 = qnorm(0.975);
+      const ncp33 = _solveNcp33(mu => _zTailPow(crit05, mu));
+      const thr = half ? 0.025 : 0.05;
+      const critCond = qnorm(1 - thr / 2);
+      const use = ps.filter(p => p > 0 && p < thr);
+      if (!use.length) return null;
+      const den = _zTailPow(critCond, ncp33);
+      const pp = use.map(p => {
+        const zo = qnorm(1 - p / 2);
+        return Math.min(1 - 1e-12, Math.max(1e-12, _zTailPow(zo, ncp33) / den));
+      });
+      const Z = pp.reduce((s, v) => s + qnorm(v), 0) / Math.sqrt(pp.length);
+      return { ncp: ncp33, k: use.length, pp, Z, pflat: 1 - pnorm(Z) };
+    }
+    // Flatness for a t (non-central t) family at common df.
+    function flatnessT(ps, df, half) {
+      const crit05 = _qtc(0.975, df);
+      const ncp33 = _solveNcp33(d => _tTailPow(crit05, df, d));
+      const thr = half ? 0.025 : 0.05;
+      const critCond = _qtc(1 - thr / 2, df);
+      const use = ps.filter(p => p > 0 && p < thr);
+      if (!use.length) return null;
+      const den = _tTailPow(critCond, df, ncp33);
+      const pp = use.map(p => {
+        const to = _qtc(1 - p / 2, df);
+        return Math.min(1 - 1e-12, Math.max(1e-12, _tTailPow(to, df, ncp33) / den));
+      });
+      const Z = pp.reduce((s, v) => s + qnorm(v), 0) / Math.sqrt(pp.length);
+      return { ncp: ncp33, k: use.length, pp, Z, pflat: 1 - pnorm(Z) };
+    }
+
+    function drawCurve(pvals) {
+      const svg = document.getElementById("plot");
+      const W = 600, H = 240, padL = 50, padR = 20, padT = 20, padB = 40;
+      const plotW = W - padL - padR, plotH = H - padT - padB;
+      const __svgParts = [""];
+      // Bins: 0-.01, .01-.02, .02-.03, .03-.04, .04-.05
+      const bins = [0, 0.01, 0.02, 0.03, 0.04, 0.05];
+      const counts = Array(bins.length - 1).fill(0);
+      for (const p of pvals) {
+        for (let i = 0; i < bins.length - 1; i++) {
+          if (p >= bins[i] && p < bins[i + 1]) { counts[i]++; break; }
+        }
+      }
+      const n = pvals.length;
+      const obs = counts.map(c => 100 * c / n);
+      const expectedNull = 20;  // 20% per bin under uniform
+      // Expected right-skew (33% power) — approximate
+      // Under 33% power H1, p-curve is steeper: approx [57, 22, 10, 7, 4] via Simonsohn tables
+      const expected33 = [57, 22, 10, 7, 4];
+      const maxY = Math.max(60, ...obs);
+      const X = i => padL + i * plotW / counts.length + plotW / (2 * counts.length);
+      const Y = v => padT + (1 - v / maxY) * plotH;
+
+      // Null line (flat at 20)
+      __svgParts.push(`<line x1="${padL}" y1="${Y(20)}" x2="${padL + plotW}" y2="${Y(20)}" stroke="var(--muted)" stroke-dasharray="4 3" opacity="0.6"/>`);
+      __svgParts.push(`<text x="${padL + plotW - 8}" y="${Y(20) - 5}" text-anchor="end" font-size="10" fill="var(--muted)">null (uniform)</text>`);
+
+      // Expected 33% line
+      const e33path = expected33.map((v, i) => (i === 0 ? "M" : "L") + X(i) + "," + Y(v)).join(" ");
+      __svgParts.push(`<path d="${e33path}" fill="none" stroke="var(--warn)" stroke-dasharray="3 3" opacity="0.7"/>`);
+      __svgParts.push(`<text x="${X(0) + 14}" y="${Y(expected33[0]) - 4}" font-size="10" fill="var(--warn)">33% power</text>`);
+
+      // Observed bars
+      for (let i = 0; i < counts.length; i++) {
+        const bw = plotW / counts.length;
+        const x = padL + i * bw;
+        const h = (obs[i] / maxY) * plotH;
+        __svgParts.push(`<rect x="${x + 4}" y="${padT + plotH - h}" width="${bw - 8}" height="${h}" fill="var(--accent)" opacity="0.85"/>`);
+        __svgParts.push(`<text x="${X(i)}" y="${padT + plotH + 16}" text-anchor="middle" font-size="11" fill="currentColor">${(bins[i] * 100).toFixed(0)}–${(bins[i + 1] * 100).toFixed(0)}</text>`);
+        if (obs[i] > 0) __svgParts.push(`<text x="${X(i)}" y="${padT + plotH - h - 5}" text-anchor="middle" font-size="10" fill="currentColor">${obs[i].toFixed(0)}%</text>`);
+      }
+      __svgParts.push(`<text x="${padL + plotW / 2}" y="${H - 8}" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">p-value bin (%)</text>`);
+      __svgParts.push(`<text x="18" y="${padT + plotH / 2}" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7" transform="rotate(-90 18 ${padT + plotH / 2})">% of studies</text>`);
+      svg.innerHTML = __svgParts.join("");
+
+    }
+
+    // ---- State helpers for reset-undo / url-state --
+    window.__almSnapshot = function () {
+      var ta = document.getElementById('src');
+      return { data: ta ? ta.value : '' };
+    };
+
+    window.__almRestore = function (snap) {
+      var isEmpty = !snap || Object.keys(snap).length === 0;
+      var ta = document.getElementById('src');
+      if (ta) ta.value = isEmpty ? '' : (snap.data != null ? snap.data : '');
+      run();
+    };
+
+    document.getElementById("btn-run").addEventListener("click", run);
+    run();
+  </script>
+  <script>
+  // =======================================================================
+  // Cycle 2.5 shared UX modules. Wire-in per RETROFIT_AUDIT.md:
+  //   wired:   csv-upload, axis-controls, results-export, url-state, reset-undo, tooltips
+  //   skipped (out-of-scope): chart-download (deferred)
+  // Adapter shims map to the existing engine without changing math.
+  // =======================================================================
+  (function () {
+    if (!window.alm) return;  // fail-open: modules not loaded, skip silently
+
+    // ---- adapter shims ------------------------------------------------
+
+    // Load rows from csv-upload (format: [{study, p}, ...]) into the
+    // textarea using the app's native "one p per line" format, then trigger run().
+    window.__almLoad = function (rows) {
+      var lines = rows.filter(function (r) {
+        return isFinite(r.p) && r.p > 0 && r.p < 0.05;
+      }).map(function (r) {
+        return r.p;
+      });
+      var ta = document.getElementById('src');
+      if (!ta) return;
+      ta.value = lines.join('\n');
+      var btn = document.getElementById('btn-run');
+      if (btn) btn.click();
+    };
+
+    // Return the last results as a flat object for results-export.
+    window.__almResults = function () {
+      return window._almLastPcurve ? (window._almLastPcurve() || {}) : {};
+    };
+
+    // ---- module init --------------------------------------------------
+
+    window.alm.csvUpload({
+      target: '#alm-csv-mount',
+      columns: [
+        { name: 'study', required: false, type: 'string', example: 'Smith 2024' },
+        { name: 'p',     required: true,  type: 'float',  example: '0.032' },
+      ],
+      onParse: function (result) {
+        window.alm.resetUndo.snapshot();  // snapshot BEFORE loading new data
+        window.__almLoad(result.rows);
+      },
+    });
+
+    window.alm.axisControls({
+      target: '#alm-axis-mount',
+      axes: [],  // p-curve histogram has no continuous axis to override
+      onChange: function (state) {
+        window.__almAxis = state;
+        // NOTE: the p-curve histogram uses fixed 5 bins (0.01 increments).
+        // Axis domain override is not applicable. Controls are wired but no-op.
+      },
+    });
+
+    window.alm.resultsExport({
+      target: '#alm-export-mount',
+      basename: 'pcurve-results',
+      getResults: function () { return window.__almResults(); },
+    });
+
+    window.alm.urlState({ version: 1 });
+    var restored = window.alm.urlState.read();
+    if (restored && Object.keys(restored).length > 0) {
+      window.__almRestore(restored);
+    }
+
+    window.alm.resetUndo({
+      target: '#alm-undo-mount',
+      snapshot: function () { return window.__almSnapshot(); },
+      restore:  function (snap) { return window.__almRestore(snap); },
+      capacity: 20,
+    });
+
+    window.alm.tooltips({
+      src: '../hub/shared/glossary.json',
+    });
+  })();
+  </script>
+<script src="../hub/shared/a11y-landmarks.js"></script>
+
+<script>
+(function () {
+  function ready(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+  ready(function () {
+    if (window.AlmAutosave && typeof AlmAutosave.install === "function") {
+      AlmAutosave.install({ appKey: 'p-curve' });
+    }
+  });
+})();
+</script>
+</body>
+</html>

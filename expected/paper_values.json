@@ -1,0 +1,343 @@
+{
+  "original": {
+    "checks": 671975,
+    "passed": 158791,
+    "per_quantity": {
+      "configuration_set": {
+        "checks": 1905,
+        "passed": 1905
+      },
+      "display": {
+        "checks": 30160,
+        "passed": 9461
+      },
+      "display_refusal": {
+        "checks": 20,
+        "passed": 0
+      },
+      "fisher_chisq": {
+        "checks": 1885,
+        "passed": 1881
+      },
+      "fisher_p": {
+        "checks": 1885,
+        "passed": 1881
+      },
+      "flat_full_p": {
+        "checks": 1885,
+        "passed": 580
+      },
+      "flat_full_z": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "flat_full_z_from_page_pp": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "flat_half_p": {
+        "checks": 1885,
+        "passed": 452
+      },
+      "flat_half_z": {
+        "checks": 1885,
+        "passed": 64
+      },
+      "flat_half_z_from_page_pp": {
+        "checks": 1885,
+        "passed": 64
+      },
+      "k": {
+        "checks": 1885,
+        "passed": 1881
+      },
+      "k_half": {
+        "checks": 1885,
+        "passed": 1881
+      },
+      "n_invalid": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "ncp33": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "p_flat": {
+        "checks": 1885,
+        "passed": 424
+      },
+      "p_used": {
+        "checks": 130605,
+        "passed": 130593
+      },
+      "plot_expected33": {
+        "checks": 9425,
+        "passed": 0
+      },
+      "plot_observed": {
+        "checks": 9425,
+        "passed": 0
+      },
+      "pp_flat_full": {
+        "checks": 130605,
+        "passed": 0
+      },
+      "pp_flat_half": {
+        "checks": 85375,
+        "passed": 0
+      },
+      "pp_skew_full": {
+        "checks": 130605,
+        "passed": 0
+      },
+      "pp_skew_half": {
+        "checks": 85375,
+        "passed": 0
+      },
+      "prop_low": {
+        "checks": 1885,
+        "passed": 1881
+      },
+      "pu_ci_lb": {
+        "checks": 1885,
+        "passed": 8
+      },
+      "pu_ci_ub": {
+        "checks": 1885,
+        "passed": 4
+      },
+      "pu_default_ci_lb": {
+        "checks": 1885,
+        "passed": 8
+      },
+      "pu_default_ci_ub": {
+        "checks": 1885,
+        "passed": 4
+      },
+      "pu_default_est": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "pu_default_L0": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "pu_default_pval0": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "pu_est": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "pu_L0": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "pu_pval0": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "refusal_state": {
+        "checks": 1905,
+        "passed": 1905
+      },
+      "run_errors": {
+        "checks": 1905,
+        "passed": 1905
+      },
+      "skew_full_p": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "skew_full_z": {
+        "checks": 1885,
+        "passed": 0
+      },
+      "skew_half_p": {
+        "checks": 1885,
+        "passed": 64
+      },
+      "skew_half_z": {
+        "checks": 1885,
+        "passed": 64
+      },
+      "z_flat": {
+        "checks": 1885,
+        "passed": 1881
+      }
+    }
+  },
+  "fixed": {
+    "checks": 671975,
+    "passed": 671887,
+    "per_quantity": {
+      "configuration_set": {
+        "checks": 1905,
+        "passed": 1905
+      },
+      "display": {
+        "checks": 30160,
+        "passed": 30160
+      },
+      "display_refusal": {
+        "checks": 20,
+        "passed": 20
+      },
+      "fisher_chisq": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "fisher_p": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "flat_full_p": {
+        "checks": 1885,
+        "passed": 1880
+      },
+      "flat_full_z": {
+        "checks": 1885,
+        "passed": 1845
+      },
+      "flat_full_z_from_page_pp": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "flat_half_p": {
+        "checks": 1885,
+        "passed": 1880
+      },
+      "flat_half_z": {
+        "checks": 1885,
+        "passed": 1847
+      },
+      "flat_half_z_from_page_pp": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "k": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "k_half": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "n_invalid": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "ncp33": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "p_flat": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "p_used": {
+        "checks": 130605,
+        "passed": 130605
+      },
+      "plot_expected33": {
+        "checks": 9425,
+        "passed": 9425
+      },
+      "plot_observed": {
+        "checks": 9425,
+        "passed": 9425
+      },
+      "pp_flat_full": {
+        "checks": 130605,
+        "passed": 130605
+      },
+      "pp_flat_half": {
+        "checks": 85375,
+        "passed": 85375
+      },
+      "pp_skew_full": {
+        "checks": 130605,
+        "passed": 130605
+      },
+      "pp_skew_half": {
+        "checks": 85375,
+        "passed": 85375
+      },
+      "prop_low": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_ci_lb": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_ci_ub": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_default_ci_lb": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_default_ci_ub": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_default_est": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_default_L0": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_default_pval0": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_est": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_L0": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "pu_pval0": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "refusal_state": {
+        "checks": 1905,
+        "passed": 1905
+      },
+      "run_errors": {
+        "checks": 1905,
+        "passed": 1905
+      },
+      "skew_full_p": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "skew_full_z": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "skew_half_p": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "skew_half_z": {
+        "checks": 1885,
+        "passed": 1885
+      },
+      "z_flat": {
+        "checks": 1885,
+        "passed": 1885
+      }
+    }
+  },
+  "known_differences": 88
+}
