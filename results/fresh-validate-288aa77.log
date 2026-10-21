@@ -1,0 +1,271 @@
+.libPaths():
+[1] "C:/Users/User/lanes/p25-pcurve/Rlib" "C:/Program Files/R/R-4.6.0/library" 
+R version 4.6.0 (2026-04-24 ucrt) 
+puniform  metadat  metafor jsonlite  stringr   poibin 
+ "0.2.8"  "1.6.0"  "5.2.1"  "2.0.0"  "1.6.0"    "1.6" 
+Version check PASS
+Warning message:
+SHA-256 inventory PASS: 104 files
+Warning messages:
+Warning message:
+One or more SMD values are unusually large (i.e., abs(yi) > 2).
+Maybe SEs were used in place of SDs to compute them? 
+CORPUS: inputs=476 (A=2 B=19 C=15 D=440) configurations=1905
+                          dataset
+          puniform::data.mccall93
+       puniform::help-example-t99
+            metadat::dat.aloe2013
+          metadat::dat.assink2016
+         metadat::dat.bakdash2021
+   metadat::dat.bangertdrowns2004
+        metadat::dat.bourassa1996
+           metadat::dat.cohen1981
+           metadat::dat.craft2003
+           metadat::dat.crede2010
+        metadat::dat.furukawa2003
+         metadat::dat.kalaian1996
+           metadat::dat.knapp2017
+ metadat::dat.konstantopoulos2011
+    metadat::dat.landenberger2005
+         metadat::dat.lehmann2018
+        metadat::dat.mcdaniel1994
+         metadat::dat.michael2013
+          metadat::dat.molloy2014
+      metadat::dat.raudenbush1985
+     metadat::dat.tannersmith2016
+                                           recipe rows finite direction entered
+                                     ZCOR(ri, ni)   12     12         1      12
+                                t-values, df = 99    8      8         1       8
+                     t-values, df = n - preds - 1    5      5         1       4
+                                           yi, vi  100    100         1      82
+                                       es.z, vi.z  678    678         1     536
+                                           yi, vi   48     48         1      36
+                   OR(lh.le, lh.re, rh.le, rh.re)   96     96         1      92
+                                     ZCOR(ri, ni)   20     20         1      18
+                                     ZCOR(ri, ni)   60     54        -1      28
+                                     ZCOR(ri, ni)   97     97         1      95
+                                      SMD(e vs c)   17     17        -1      15
+                                           yi, vi   67     67         1      48
+                                           yi, vi   66     66         1      64
+                                           yi, vi   56     56         1      31
+ OR(n.cbt.non, n.cbt.rec, n.ctrl.non, n.ctrl.rec)   58     58         1      51
+                                           yi, vi   81     81         1      57
+                                     ZCOR(ri, ni)  160    160         1     141
+                                           yi, vi   12     12         1       8
+                                     ZCOR(ri, ni)   16     16         1      13
+                                           yi, vi   19     19         1      11
+                                           yi, vi  113    113         1      93
+ significant
+          11
+           5
+           3
+          59
+         172
+          14
+          57
+          10
+          17
+          85
+           5
+           4
+          46
+          15
+          18
+          25
+          81
+           2
+           9
+           3
+          43
+Corpus rebuild PASS: byte-identical (3 files)
+Warning messages:
+REFERENCE: configurations=1905 refused=20 seconds=119.7
+Fresh R reference PASS: 1905 configurations, max normalised difference from archived 0
+Warning message:
+Largest normalised difference among passing 1e-9 checks: 9.93e-10
+                 quantity checks passed max_difference max_difference_passed
+        configuration_set   1905   1905    0.000000000          0.000000e+00
+                  display  30160   9461    0.000000000          0.000000e+00
+          display_refusal     20      0    0.000000000          0.000000e+00
+             fisher_chisq   1885   1881    0.282515772          1.204744e-15
+                 fisher_p   1885   1881    0.105693208          1.192935e-13
+              flat_full_p   1885    580    0.220474461          9.932845e-10
+              flat_full_z   1885      0    2.008379136          0.000000e+00
+ flat_full_z_from_page_pp   1885      0    0.000000000          0.000000e+00
+              flat_half_p   1885    452    0.161169023          9.653143e-10
+              flat_half_z   1885     64    2.025065686          0.000000e+00
+ flat_half_z_from_page_pp   1885     64    0.000000000          0.000000e+00
+                        k   1885   1881    0.000000000          0.000000e+00
+                   k_half   1885   1881    0.000000000          0.000000e+00
+                n_invalid   1885      0    0.000000000          0.000000e+00
+                    ncp33   1885      0    0.000283185          0.000000e+00
+                   p_flat   1885    424    0.096448106          9.659317e-10
+                   p_used 130605 130593    0.000000000          0.000000e+00
+          plot_expected33   9425      0    0.000000000          0.000000e+00
+            plot_observed   9425      0    0.000000000          0.000000e+00
+             pp_flat_full 130605      0    0.000000000          0.000000e+00
+             pp_flat_half  85375      0    0.000000000          0.000000e+00
+             pp_skew_full 130605      0    0.000000000          0.000000e+00
+             pp_skew_half  85375      0    0.000000000          0.000000e+00
+                 prop_low   1885   1881    0.200000000          0.000000e+00
+                 pu_ci_lb   1885      8    0.000000000          0.000000e+00
+                 pu_ci_ub   1885      4    0.000000000          0.000000e+00
+         pu_default_ci_lb   1885      8    0.000000000          0.000000e+00
+         pu_default_ci_ub   1885      4    0.000000000          0.000000e+00
+           pu_default_est   1885      0   29.826366644          0.000000e+00
+            pu_default_L0   1885      0    0.000000000          0.000000e+00
+         pu_default_pval0   1885      0    0.000000000          0.000000e+00
+                   pu_est   1885      0    1.000000000          0.000000e+00
+                    pu_L0   1885      0    0.000000000          0.000000e+00
+                 pu_pval0   1885      0    0.000000000          0.000000e+00
+            refusal_state   1905   1905    0.000000000          0.000000e+00
+               run_errors   1905   1905    0.000000000          0.000000e+00
+              skew_full_p   1885      0    0.000000000          0.000000e+00
+              skew_full_z   1885      0    0.000000000          0.000000e+00
+              skew_half_p   1885     64    0.000000000          0.000000e+00
+              skew_half_z   1885     64    0.000000000          0.000000e+00
+                   z_flat   1885   1881    0.225403331          0.000000e+00
+        tolerance
+            exact
+  shown precision
+            exact
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+            exact
+            exact
+            exact
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+ 1e-4 + 1e-4/|f'|
+ 1e-4 + 1e-4/|f'|
+ 1e-4 + 1e-4/|f'|
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+            exact
+            exact
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+original: 158791/671975 checks pass
+GATE FAIL: original
+Warning message:
+Largest normalised difference among passing 1e-9 checks: 9.39e-10
+                 quantity checks passed max_difference max_difference_passed
+        configuration_set   1905   1905   0.000000e+00          0.000000e+00
+                  display  30160  30160   0.000000e+00          0.000000e+00
+          display_refusal     20     20   0.000000e+00          0.000000e+00
+             fisher_chisq   1885   1885   1.204744e-15          1.204744e-15
+                 fisher_p   1885   1885   1.141309e-13          1.141309e-13
+              flat_full_p   1885   1880   9.598471e-06          4.364832e-10
+              flat_full_z   1885   1845   2.406685e-05          9.391672e-10
+ flat_full_z_from_page_pp   1885   1885   1.554312e-15          1.554312e-15
+              flat_half_p   1885   1880   7.564493e-06          7.141132e-11
+              flat_half_z   1885   1847   2.866431e-05          6.762733e-10
+ flat_half_z_from_page_pp   1885   1885   1.283426e-15          1.283426e-15
+                        k   1885   1885   0.000000e+00          0.000000e+00
+                   k_half   1885   1885   0.000000e+00          0.000000e+00
+                n_invalid   1885   1885   0.000000e+00          0.000000e+00
+                    ncp33   1885   1885   1.481703e-14          1.481703e-14
+                   p_flat   1885   1885   5.551115e-17          5.551115e-17
+                   p_used 130605 130605   0.000000e+00          0.000000e+00
+          plot_expected33   9425   9425   3.914600e-14          3.914600e-14
+            plot_observed   9425   9425   0.000000e+00          0.000000e+00
+             pp_flat_full 130605 130605   1.332268e-14          1.332268e-14
+             pp_flat_half  85375  85375   2.264855e-14          2.264855e-14
+             pp_skew_full 130605 130605   0.000000e+00          0.000000e+00
+             pp_skew_half  85375  85375   0.000000e+00          0.000000e+00
+                 prop_low   1885   1885   0.000000e+00          0.000000e+00
+                 pu_ci_lb   1885   1885   1.517416e-13          1.517416e-13
+                 pu_ci_ub   1885   1885   4.004993e-13          4.004993e-13
+         pu_default_ci_lb   1885   1885   1.334013e-01          1.334013e-01
+         pu_default_ci_ub   1885   1885   1.831965e-03          1.831965e-03
+           pu_default_est   1885   1885   3.009578e-03          3.009578e-03
+            pu_default_L0   1885   1885   2.952466e-14          2.952466e-14
+         pu_default_pval0   1885   1885   6.772360e-15          6.772360e-15
+                   pu_est   1885   1885   1.631711e-13          1.631711e-13
+                    pu_L0   1885   1885   2.952466e-14          2.952466e-14
+                 pu_pval0   1885   1885   6.772360e-15          6.772360e-15
+            refusal_state   1905   1905   0.000000e+00          0.000000e+00
+               run_errors   1905   1905   0.000000e+00          0.000000e+00
+              skew_full_p   1885   1885   2.498002e-16          2.498002e-16
+              skew_full_z   1885   1885   1.480314e-15          1.480314e-15
+              skew_half_p   1885   1885   2.775558e-16          2.775558e-16
+              skew_half_z   1885   1885   1.086838e-15          1.086838e-15
+                   z_flat   1885   1885   0.000000e+00          0.000000e+00
+        tolerance
+            exact
+  shown precision
+            exact
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+            exact
+            exact
+            exact
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+ 1e-4 + 1e-4/|f'|
+ 1e-4 + 1e-4/|f'|
+ 1e-4 + 1e-4/|f'|
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+            exact
+            exact
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+             1e-9
+fixed: 671887/671975 checks pass (pre-registered rule; the 88 differences are exactly the pinned ill-conditioned set: yes)
+GATE PASS: fixed
+Warning message:
+P1_value_times_1_plus_1e8th: exit status 1 -> GATE FAILED as required |                  quantity checks passed max_difference max_difference_passed | P1_value_times_1_plus_1e8th: 671886/671975 checks pass (pre-registered rule; the 89 differences are exactly the pinned ill-conditioned set: NO) | GATE FAIL: P1_value_times_1_plus_1e8th
+P2_drop_one_configuration: exit status 1 -> GATE FAILED as required |                  quantity checks passed max_difference max_difference_passed | P2_drop_one_configuration: 671786/671875 checks pass (pre-registered rule; the 89 differences are exactly the pinned ill-conditioned set: NO) | GATE FAIL: P2_drop_one_configuration
+P3_perstudy_pp_times_1_plus_1e8th: exit status 1 -> GATE FAILED as required |                  quantity checks passed max_difference max_difference_passed | P3_perstudy_pp_times_1_plus_1e8th: 671886/671975 checks pass (pre-registered rule; the 89 differences are exactly the pinned ill-conditioned set: NO) | GATE FAIL: P3_perstudy_pp_times_1_plus_1e8th
+PLANTS PASS: every planted defect made the gate fail
+Runtime: 427.2 seconds
+original: 158791/671975 checks pass - matches expected/paper_values.json
+fixed: 671887/671975 checks pass (pre-registered rule; the 88 differences are exactly the pinned ill-conditioned set: yes) - matches expected/paper_values.json
+
+VALIDATION PASS
+
+[exited with code 0]
