@@ -17,10 +17,10 @@
       "scheme": "url"
     },
     {
-      "identifier": "<ALLMETA_RELEASE>",
+      "identifier": "https://github.com/mahmood726-cyber/allmeta/releases/tag/v1.10.0",
       "relation": "isDerivedFrom",
       "scheme": "url"
     }
   ],
-  "description": "Validation of the allmeta p-curve page (Fisher and Stouffer right-skew tests, 33%-power flatness tests, plot data; p-uniform estimate, CI and test of no effect) against R 4.6.0 base-R implementations of the p-curve app 4.x formulas and puniform 0.2.8, on a pre-registered corpus of 476 inputs in 1,905 configurations (original page 158791/671975; corrected page 671887/671975 checks pass, the 88 differences being pinned ill-conditioned flatness statistics). Original commit 1cb3f8409c7af75ed41f7e1811f9c502f900fc79; corrected commit 4ea528778afc58e98c6aad5ce416995b79e46af0. The next allmeta release (pending): <ALLMETA_RELEASE>; DOI <ALLMETA_RELEASE_DOI>."
+  "description": "Validation of the allmeta p-curve page (Fisher and Stouffer right-skew tests, 33%-power flatness tests, plot data; p-uniform estimate, CI and test of no effect) against R 4.6.0 base-R implementations of the p-curve app 4.x formulas and puniform 0.2.8, on a pre-registered corpus of 476 inputs in 1,905 configurations (original page 158791/671975; corrected page 671887/671975 checks pass, the 88 differences being pinned ill-conditioned flatness statistics). Original commit 1cb3f8409c7af75ed41f7e1811f9c502f900fc79; corrected commit 4ea528778afc58e98c6aad5ce416995b79e46af0. allmeta release v1.10.0: https://github.com/mahmood726-cyber/allmeta/releases/tag/v1.10.0; DOI 10.5281/zenodo.24515927."
 }

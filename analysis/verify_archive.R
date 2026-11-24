@@ -1,5 +1,5 @@
 # Archive verifier: Rscript analysis/verify_archive.R
-# Checks the page snapshots against their manifests, release placeholders in the metadata, the presence of every
+# Checks the page snapshots against their manifests, release allmeta release and DOI in the metadata, the presence of every
 # file the README promises, and that the pinned counts agree with the archived comparison summaries.
 source("analysis/common.R")
 suppressPackageStartupMessages(library(jsonlite))
@@ -10,9 +10,9 @@ for (pg in c("original", "fixed")) {
   for (f in names(m$files)) chk(identical(unname(tools::sha256sum(file.path("app", pg, f))), m$files[[f]]), paste("hash", pg, f))
   chk(nchar(m$commit) == 40, paste("full commit sha in manifest", pg))
 }
-chk(grepl("<ALLMETA_RELEASE>", paste(readLines("CITATION.cff"), collapse = "\n")) && grepl("<ALLMETA_RELEASE_DOI>", paste(readLines("CITATION.cff"), collapse = "\n")), "CITATION.cff placeholders")
+chk(grepl("v1.10.0", paste(readLines("CITATION.cff"), collapse = "\n")) && grepl("10.5281/zenodo.24515927", paste(readLines("CITATION.cff"), collapse = "\n")), "CITATION.cff allmeta release and DOI")
 z <- paste(readLines(".zenodo.json"), collapse = "\n")
-chk(grepl("<ALLMETA_RELEASE>", z) && grepl("<ALLMETA_RELEASE_DOI>", z), ".zenodo.json placeholders")
+chk(grepl("v1.10.0", z) && grepl("10.5281/zenodo.24515927", z), ".zenodo.json allmeta release and DOI")
 chk(!is.null(fromJSON(".zenodo.json")), ".zenodo.json parses")
 need <- c("README.md", "PREREG.md", "LICENSE", "validate.R", "corpus/build_corpus.R", "corpus/inputs.json", "corpus/configurations.json",
           "oracle/reference.R", "results/reference.json", "results/app-original.json", "results/app-fixed.json",

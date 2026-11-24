@@ -3,8 +3,8 @@
 Validated page: the allmeta `p-curve` app — **original** at commit `1cb3f8409c7af75ed41f7e1811f9c502f900fc79`
 (release v1.8.0; `app/original/`) and **corrected** at commit `4ea528778afc58e98c6aad5ce416995b79e46af0` on branch
 `f1000/p25-p-curve` (`app/fixed/`; not merged upstream at archive build time). Upstream:
-https://github.com/mahmood726-cyber/allmeta. Release: the next allmeta release (pending), <ALLMETA_RELEASE>;
-DOI <ALLMETA_RELEASE_DOI>. Each `app/*/source-manifest.json` records the SHA-256 of every page asset.
+https://github.com/mahmood726-cyber/allmeta. Release: allmeta v1.10.0, https://github.com/mahmood726-cyber/allmeta/releases/tag/v1.10.0;
+DOI 10.5281/zenodo.24515927. Each `app/*/source-manifest.json` records the SHA-256 of every page asset.
 
 ## Scope
 

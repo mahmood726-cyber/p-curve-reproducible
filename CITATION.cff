@@ -21,6 +21,6 @@ references:
     authors:
       - family-names: Ahmad
         given-names: Mahmood
-    version: "<ALLMETA_RELEASE>"
-    url: "<ALLMETA_RELEASE>"
-    notes: "isDerivedFrom; the next allmeta release (pending); DOI <ALLMETA_RELEASE_DOI>"
+    version: "v1.10.0"
+    url: "https://github.com/mahmood726-cyber/allmeta/releases/tag/v1.10.0"
+    notes: "isDerivedFrom; allmeta release v1.10.0; DOI 10.5281/zenodo.24515927"
