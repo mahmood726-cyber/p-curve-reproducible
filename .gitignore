@@ -1,0 +1,7 @@
+harness/node_modules/
+.validate-work/
+.plant-work/
+.edge-profile/
+results/shards/*.checkpoints.jsonl
+results/shards/*.partial.jsonl
+figures/dump_dom.err

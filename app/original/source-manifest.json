@@ -1,0 +1,22 @@
+{
+ "repository": "https://github.com/mahmood726-cyber/allmeta",
+ "commit": "1cb3f8409c7af75ed41f7e1811f9c502f900fc79",
+ "note": "allmeta main = release v1.8.0 (original page)",
+ "files": {
+  "LICENSE": "9ef93bba7449dd90d4d56d657049842fc7ff0b073fb669b79daf267d68c1c8c6",
+  "hub/app-style.css": "475254903d40eebe241574975f1ddff13808c8ad478c17137fda449a3952361f",
+  "hub/shared/a11y-landmarks.js": "f7a89f3c72dd80f666d16d52592a7e60f45fba62efc9dfeb4c2faf7fb0e8b5a2",
+  "hub/shared/axis-controls.js": "7a5dd1033ee1b348eaedbffd2e14fdf8b1bd1d24318ab9e680c442e693613291",
+  "hub/shared/csv-upload.js": "392d1cfb6f8633978e978f37d90f795828ad0d03ac642edbedfca2bcc439de34",
+  "hub/shared/glossary.json": "16e134407092859538b7c1215b8f40ae5c6ce8c4bae49c4cf953cf7260a228ce",
+  "hub/shared/reset-undo.js": "467e815bc5129c09125f736c61eb0a0e12b8375b7d63d868921ec6224e028ce5",
+  "hub/shared/results-export.js": "aa484e6bd3cbe2098e677e171b07fdc82ab73027637d56e3b59635aa831b545d",
+  "hub/shared/tooltips.js": "bbd9b0e117877c089549208d4d2b2d6dde0aa9c7ff8c02e3c035c22ee1e678e3",
+  "hub/shared/url-state.js": "f15ee8a8c29faf1c3878f6be7de17559c83bf2e1621a711f146b1b4896772f4b",
+  "p-curve/index.html": "4e732750f4d155955b5465f83d12b500c7f5b9ed3b704747527276aca195dbc9",
+  "shared/autosave.js": "919165910d2b46a674b5ec1c81c01bce4d3c0779a86232ec032c994274980f1c",
+  "shared/build-info.js": "232a5a903b1fcc451fede886d11688a80c0dce736d60a3613cc8ef5d41c94668",
+  "shared/forced-colors.css": "a967581cb9dfe03bcd6158264353dd8c3fff386d2919143587aa507a24e0c39c",
+  "shared/ma-studies-v1.js": "416fce0f8ec6432e432c050f9bfc9005d74ac5ad389744198d8530ea6096cb11"
+ }
+}

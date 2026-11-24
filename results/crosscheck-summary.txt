@@ -1,0 +1,7 @@
+dmetar errors: 35 configurations; k range 3-20; min p range 0.00279 to 0.049
+full-curve and right-skew quantities beyond 3-decimal rounding: 21 values in 11 configurations; smallest p in those configurations: max 0.000144
+  of these, 8 contain a p-value below 2.2e-16 (which the app 4.x code, computing p as 1 - pchisq, cannot represent): metadat::dat.tannersmith2016::z, grid::k101_d0_r1::z, grid::k400_d3_r5::z
+  the remaining 3 values exceed half a unit of the 3rd decimal (5e-4) by at most 3e-05
+in the other 425 configurations all 2550 right-skew and full-flatness values agree within rounding
+half-curve flatness: 99 of 872 values within rounding (definitional difference: dmetar divides by 3*P(p<.025) instead of P(p<.025))
+pf literal form: 249 of 1414 t configurations differ by more than 1e-6 (max 3.2); their smallest p: max 0.049; median diff 5.27e-08

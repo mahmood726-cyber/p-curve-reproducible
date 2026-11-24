@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "Please cite this validation archive."
+title: "p-curve and p-uniform in the browser: validation against R and puniform"
+type: software
+authors:
+  - family-names: Ahmad
+    given-names: Mahmood
+    orcid: "https://orcid.org/0000-0001-9107-3704"
+version: 1.0.0
+license: MIT
+references:
+  - type: software
+    title: allmeta
+    authors:
+      - family-names: Ahmad
+        given-names: Mahmood
+    url: https://github.com/mahmood726-cyber/allmeta
+    notes: "isDerivedFrom; p-curve page at commit 1cb3f8409c7af75ed41f7e1811f9c502f900fc79 (v1.8.0, original) and branch f1000/p25-p-curve commit 4ea528778afc58e98c6aad5ce416995b79e46af0 (corrected; not merged upstream at archive build time)"
+  - type: software
+    title: allmeta
+    authors:
+      - family-names: Ahmad
+        given-names: Mahmood
+    version: "<ALLMETA_RELEASE>"
+    url: "<ALLMETA_RELEASE>"
+    notes: "isDerivedFrom; the next allmeta release (pending); DOI <ALLMETA_RELEASE_DOI>"
